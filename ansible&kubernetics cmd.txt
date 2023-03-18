@@ -1,0 +1,78 @@
+kubernetic and ansible comman note.
+
+running commnds below to check the status 
+mini start
+kubectl get deployments
+kubectl get pods
+kubectl get svc
+minikube dashboard
+kubectl get namespace "name of namespace"
+
+---create an app
+kubectl create deployment name --image=dockerhubusername/imagename
+
+---scaling in kubernetics
+kubectl scale deployment/name --replicas=5
+
+---creating services
+kubectl expose deployment nameofapp --type=LoadBalancer --port=8080
+
+----getting the services created
+kubectl get svc
+
+----to see the service in the browser
+minukube service nameofserviceapp
+
+---how to personally create space in kubernetics
+kubectl create namespace name
+
+---to see the namespace just created
+kubectl apply -f deployment.yaml --namespace name
+
+---to see the deployments
+kubectl get deployment -n name
+
+---to see the pods -n devops
+kubectl get pods -n name
+ 
+
+
+
+--------ANSIBLE------------------
+*create aleast 3 instance Ec2 on AWS
+*change the first on in the three ec2 to controlnode
+*change the others to managenode1 and managenode2
+*click on the controlnode ans connect to get the ssh aws login
+*right click the download folder where your pemkey download file is and git bash here
+*past the ssh aws attach to the controlnode you conect to in your aws website
+*sudo amazon-linux-extras install ansible2
+* press enter create a vi something.pem 
+*copy those sintax inside the pemkey you created while on awe ec2 
+*paste it inside something.pem
+*ls -l
+*ssh-agent bash
+*sudo cp something.pem ~/.ssh/
+*ssh-add ~/.ssh/something.pem
+*vim inventory.txt[
+ansible-target1 ansible_host=100.26.239.29 ansible_connection=ssh ansible-user=ec2-user
+ansible-target2 ansible_host=106.76.219.59 ansible_connection=ssh ansible-user=ec2-user
+
+]
+*press escapekey :wq to save the above
+*ansible-target1 -m ping -i inventory.txt
+OR
+*vim inventory.txt[
+[server]
+ansible-target1 ansible_host=100.26.239.29 ansible_connection=ssh ansible-user=ec2-user
+ansible-target2 ansible_host=106.76.219.59 ansible_connection=ssh ansible-user=ec2-user
+
+]
+*press escapekey :wq to save the above
+*ansible server -m ping -i inventory.txt
+
+anisible server -m service -a "name=httpd state=restarted"
+
+
+
+
+
